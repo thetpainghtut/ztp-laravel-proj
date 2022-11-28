@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
+use App\Models\Position;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -25,7 +26,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('backend.employee.createform');
+        $positions = Position::all();
+        return view('backend.employee.createform',compact('positions'));
     }
 
     /**
@@ -45,6 +47,7 @@ class EmployeeController extends Controller
             'email' => 'required|unique:employees,email',
             'nrc' => 'required|unique:employees,nrc',
             'salary' => 'required',
+            'position' => 'required',
         ]);
 
         // file upload
@@ -57,6 +60,7 @@ class EmployeeController extends Controller
         $employee->email = $request->email;
         $employee->nrc = $request->nrc;
         $employee->salary = $request->salary;
+        $employee->position_id = $request->position;
         $employee->save();
 
         return redirect()->route('employee.index');

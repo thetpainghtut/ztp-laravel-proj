@@ -23,9 +23,17 @@
         <label for="inputAddress" class="form-label">Address</label>
         <textarea name="address" class="form-control" id="inputAddress" placeholder="1234 Main St"></textarea>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-3">
         <label for="inputEmail" class="form-label">Email</label>
         <input type="email" name="email" class="form-control" id="inputEmail">
+      </div>
+      <div class="col-md-3">
+        <label for="inputPosition" class="form-label">Position</label>
+        <select name="position" class="form-control" id="inputPosition">
+          @foreach($positions as $key=>$value)
+            <option value="{{$value->id}}">{{$value->name}}</option>
+          @endforeach
+        </select>
       </div>
       <div class="col-md-4">
         <label for="inputNrc" class="form-label">NRC</label>

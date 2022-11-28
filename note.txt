@@ -1,0 +1,11 @@
+user (id, name, email)
+phone => hasOne()
+
+phone (id, phone_no, user_id)
+user => belongsTo()
+
+post (id, title, content)
+comments => hasMany()
+
+comment (id, content, post_id)
+post => belongsTo()

@@ -9,3 +9,27 @@ comments => hasMany()
 
 comment (id, content, post_id)
 post => belongsTo()
+
+
+product
+order
+
+order_product
+
+user -> roles ()
+role -> users
+
+role_user
+
+
+Blog
+  - guest
+  - author
+  - admin
+  
+
+
+Auth Scandfolding
+- composer require laravel/ui
+- php artisan ui bootstrap --auth
+- npm install && npm run dev

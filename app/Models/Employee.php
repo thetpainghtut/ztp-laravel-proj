@@ -13,14 +13,17 @@ class Employee extends Model
     protected $fillable = [
         'name',
         'phoneno',
-        'address',
         'email',
-        'nrc',
-        'salary',
+        'position_id',
     ];
 
     public function position()
     {
         return $this->belongsTo(Position::class);
+    }
+
+    public function employeedetail()
+    {
+        return $this->hasOne(Employeedetail::class);
     }
 }

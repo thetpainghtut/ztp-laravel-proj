@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Employee;
 use App\Models\Position;
+use App\Models\Employeedetail;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -45,23 +48,28 @@ class EmployeeController extends Controller
             'profile' => 'required|mimes:jpg,bmp,png',
             'address' => 'required',
             'email' => 'required|unique:employees,email',
-            'nrc' => 'required|unique:employees,nrc',
+            'nrc' => 'required|unique:employeedetails,nrc',
             'salary' => 'required',
             'position' => 'required',
         ]);
 
         // file upload
         
+        DB::transaction(function ($request) {
+            $employee = new Employee;
+            $employee->name = $request->name;
+            $employee->email = $request->email;
+            $employee->phoneno = $request->phoneno;
+            $employee->position_id = $request->position;
+            $employee->save();
 
-        $employee = new Employee;
-        $employee->name = $request->name;
-        $employee->phoneno = $request->phoneno;
-        $employee->address = $request->address;
-        $employee->email = $request->email;
-        $employee->nrc = $request->nrc;
-        $employee->salary = $request->salary;
-        $employee->position_id = $request->position;
-        $employee->save();
+            $employeeDetail = new Employeedetail;
+            $employeeDetail->address = $request->address;
+            $employeeDetail->nrc = $request->nrc;
+            $employeeDetail->salary = $request->salary;
+            $employeeDetail->employee_id = $employee->id;
+            $employeeDetail->save();
+        });
 
         return redirect()->route('employee.index');
     }
@@ -74,7 +82,7 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        return view('backend.employee.detail',compact('employee'));
     }
 
     /**

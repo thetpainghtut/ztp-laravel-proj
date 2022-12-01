@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,5 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('employee',EmployeeController::class);
-Route::resource('position',PositionController::class);
+Route::middleware('auth')->group(function () {
+    Route::resource('position',PositionController::class);
+    Route::resource('employee',EmployeeController::class);
+    Route::resource('user',UserController::class);
+});
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

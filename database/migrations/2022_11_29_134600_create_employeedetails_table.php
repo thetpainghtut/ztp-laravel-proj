@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('employeedetails', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->string('phoneno');
+            $table->text('address');
+            $table->string('nrc')->unique();
+            $table->integer('salary');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->unsignedBigInteger('position_id');
+            $table->unsignedBigInteger('employee_id');
  
-            $table->foreign('position_id')->references('id')->on('positions');
+            $table->foreign('employee_id')->references('id')->on('employees');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('employeedetails');
     }
 };

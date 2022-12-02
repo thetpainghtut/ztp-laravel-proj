@@ -55,7 +55,7 @@ class EmployeeController extends Controller
 
         // file upload
         
-        DB::transaction(function ($request) {
+        DB::transaction(function () use($request) {
             $employee = new Employee;
             $employee->name = $request->name;
             $employee->email = $request->email;
